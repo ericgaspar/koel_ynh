@@ -1,0 +1,6 @@
+SOURCE_URL=https://github.com/koel/koel/archive/v4.4.0.tar.gz
+SOURCE_SUM=239e2f32eea97d6d872a39af664c5fd57b8ff2ed8af6db228038771a774208a6
+SOURCE_SUM_PRG=sha256sum
+SOURCE_FORMAT=tar.gz
+SOURCE_IN_SUBDIR=true
+SOURCE_FILENAME=
