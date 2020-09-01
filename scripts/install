@@ -24,8 +24,10 @@ ynh_abort_if_errors
 #=================================================
 
 domain=$YNH_APP_ARG_DOMAIN
-path_url="/"
+path_url=$YNH_APP_ARG_PATH
 is_public=$YNH_APP_ARG_IS_PUBLIC
+admin=$YNH_APP_ARG_ADMIN
+password=$YNH_APP_ARG_PASSWORD
 
 app=$YNH_APP_INSTANCE_NAME
 
@@ -48,6 +50,7 @@ ynh_script_progression --message="Storing installation settings..." --weight=2
 ynh_app_setting_set --app=$app --key=domain    --value=$domain
 ynh_app_setting_set --app=$app --key=path      --value=$path_url
 ynh_app_setting_set --app=$app --key=is_public --value=$is_public
+ynh_app_setting_set --app=$app --key=admin --value=$admin
 
 #=================================================
 # STANDARD MODIFICATIONS
@@ -66,12 +69,6 @@ ynh_app_setting_set --app=$app --key=port --value=$port
 ynh_script_progression --message="Installing dependencies..." --weight=20
 
 ynh_install_app_dependencies $pkg_dependencies
-
-# Install Nodejs
-ynh_exec_warn_less ynh_install_nodejs --nodejs_version=$nodejs_version
-
-# Install Yarn
-ynh_install_extra_app_dependencies --repo="deb https://dl.yarnpkg.com/debian/ stable main" --package="yarn" --key="https://dl.yarnpkg.com/debian/pubkey.gpg"
 
 #=================================================
 # CREATE A POSTGRESQL DATABASE
@@ -132,7 +129,7 @@ popd || ynh_die
 #=================================================
 ynh_script_progression --message="Configuring a systemd service..." --weight=1
 
-ynh_replace_string --match_string="__ENV_PATH__"  --replace_string="$PATH"    --target_file="../conf/systemd.service"
+ynh_replace_string --match_string="__ENV_PATH__" --replace_string="$PATH"    --target_file="../conf/systemd.service"
 ynh_replace_string --match_string="__YNH_NPM__"   --replace_string="$ynh_npm" --target_file="../conf/systemd.service"
 ynh_replace_string --match_string="__PORT__"   --replace_string="$port" --target_file="../conf/systemd.service"
 

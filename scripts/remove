@@ -70,7 +70,7 @@ ynh_secure_remove --file="$final_path"
 #=================================================
 # REMOVE NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing nginx web server configuration..." --time --weight=1
+ynh_script_progression --message="Removing NGINX web server configuration..." --time --weight=1
 
 # Remove the dedicated nginx config
 ynh_remove_nginx_config
@@ -78,18 +78,10 @@ ynh_remove_nginx_config
 #=================================================
 # REMOVE PHP-FPM CONFIGURATION
 #=================================================
-ynh_script_progression --message="Removing php-fpm configuration..." --time --weight=1
+ynh_script_progression --message="Removing PHP-FPM configuration..." --time --weight=1
 
 # Remove the dedicated php-fpm config
 ynh_remove_fpm_config
-
-#=================================================
-# REMOVE LOGROTATE CONFIGURATION
-#=================================================
-ynh_script_progression --message="Removing logrotate configuration..." --time --weight=1
-
-# Remove the app-specific logrotate config
-ynh_remove_logrotate
 
 #=================================================
 # CLOSE A PORT
@@ -100,29 +92,6 @@ then
 	ynh_script_progression --message="Closing port $port..." --time --weight=1
 	ynh_exec_warn_less yunohost firewall disallow TCP $port
 fi
-
-#=================================================
-# REMOVE FAIL2BAN CONFIGURATION
-#=================================================
-ynh_script_progression --message="Removing fail2ban configuration..." --time --weight=1
-
-# Remove the dedicated fail2ban config
-ynh_remove_fail2ban_config
-
-#=================================================
-# SPECIFIC REMOVE
-#=================================================
-# REMOVE VARIOUS FILES
-#=================================================
-
-# Remove a cron file
-ynh_secure_remove --file="/etc/cron.d/$app"
-
-# Remove a directory securely
-ynh_secure_remove --file="/etc/$app/"
-
-# Remove the log files
-ynh_secure_remove --file="/var/log/$app/"
 
 #=================================================
 # GENERIC FINALIZATION
