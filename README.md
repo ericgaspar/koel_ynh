@@ -15,7 +15,7 @@ Quick description of this app.
 
 ## Screenshots
 
-![](Link to a screenshot of this app.)
+![](https://docs.koel.dev/assets/img/showcase.0f8e8026.png)
 
 ## Demo
 
