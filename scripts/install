@@ -97,7 +97,7 @@ ynh_setup_source --dest_dir=$final_path
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
-ynh_script_progression --message="Configuring Nginx web server..." --weight=2
+ynh_script_progression --message="Configuring NGINX web server..." --weight=2
 
 # Create a dedicated nginx config
 ynh_add_nginx_config
@@ -117,12 +117,9 @@ ynh_system_user_create --username=$app --home_dir=$final_path
 #==============================================
 ynh_script_progression --message="Building $app... (this will take some time and resources!)" --weight=40
 
-pushd "$final_path" || ynh_die
+ynh_install_composer --phpversion="${YNH_PHP_VERSION}" --workdir="$final_path" --install_args="--prefer-source --no-dev"
 
-		composer install
-		php artisan koel:init # Populate credentials during the process
-
-popd || ynh_die
+(cd $final_path && php$YNH_PHP_VERSION artisan koel:init) # Populate credentials during the process
 
 #=================================================
 # SETUP SYSTEMD
