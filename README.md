@@ -20,7 +20,7 @@ on the server side. Targeting web developers, Koel embraces some of the more mod
 
 ## Demo
 
-* [Official demo](Link to a demo site for this app.)
+* [Official demo](https://demo.koel.dev/)
 
 ## Configuration
 
